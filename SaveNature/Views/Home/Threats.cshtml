@@ -1,0 +1,705 @@
+<!-- Views/Home/threats.cshtml -->
+@model dynamic
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СОХРАНИ ПРИРОДУ | Угрозы</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/threats.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="background-overlay"></div>
+
+    <div class="threats-container">
+        <div class="threats-card">
+            <div class="threats-header">
+                <h1 class="animated-text">Глобальные экологические угрозы</h1>
+            </div>
+
+            <!-- Диаграмма "Разливы нефти" -->
+            <div class="threats-section">
+                <h2>Разливы нефти</h2>
+                <div class="chart-wrapper">
+                    <canvas id="oilSpillsChart"></canvas>
+                </div>
+                <div class="counter" id="oilSpillCounter">0</div>
+                <p class="pulse-text">Тонны нефти ежегодно загрязняют океаны</p>
+            </div>
+
+            <!-- Диаграмма "Перепроизводство товаров" -->
+            <div class="threats-section">
+                <h2>Перепроизводство товаров</h2>
+                <div class="chart-wrapper">
+                    <canvas id="overproductionChart"></canvas>
+                </div>
+                <div class="radical-text">
+                    <p>Капитализм заставляет нас производить больше, чем нужно. Корпорации наживаются на перепроизводстве, истощая ресурсы и загрязняя планету. К 2030 году мы утонем в горах ненужных товаров, если не остановим этот безумный цикл. Человечество, ослепленное жадностью, вырубает леса, высасывает недра и отравляет воздух ради прибыли, обрекая будущие поколения на жизнь среди мусора и хаоса.</p>
+                </div>
+            </div>
+
+            <!-- Диаграмма "Избыточное потребление" -->
+            <div class="threats-section">
+                <h2>Избыточное потребление</h2>
+                <div class="chart-wrapper">
+                    <canvas id="overconsumptionChart"></canvas>
+                </div>
+                <div class="radical-text">
+                    <p>Человечество жрет как свинья, забывая о последствиях. Сладости и фастфуд — пустые калории, которые не питают, но вытесняют нормальную белковую еду вроде мяса, разрушая здоровье. Шкафы ломятся от одежды, которую никто не носит, а электроника устаревает через год, пополняя свалки. Это не потребление, а самоубийство планеты, подогреваемое маркетингом и человеческой глупостью.</p>
+                </div>
+            </div>
+
+            <!-- Диаграмма "Загрязнение океанов пластиком" -->
+            <div class="threats-section">
+                <h2>Загрязнение океанов пластиком</h2>
+                <div class="chart-wrapper">
+                    <canvas id="plasticPollutionChart"></canvas>
+                </div>
+            </div>
+
+         <!-- Диаграмма "Деградация почв" -->
+         <div class="threats-section">
+            <h2>Деградация почв</h2>
+            <div class="chart-wrapper">
+               <canvas id="soilDegradationChart"></canvas>
+            </div>
+            <p class="pulse-text">Миллионы гектаров плодородной земли теряются ежегодно</p>
+         </div>
+
+         <!-- Диаграмма "Уменьшение биоразнообразия" -->
+         <div class="threats-section">
+            <h2>Уменьшение биоразнообразия</h2>
+            <div class="biodiversity-stats">
+               <div>📉 68% снижение популяций с 1970 года (WWF Living Planet Report 2022)</div>
+               <div>🦣 Текущие темпы вымирания в 100-1000 раз выше фоновых (IPBES, 2019)</div>
+               <div>🌾 50% пригодных земель уже занято сельским хозяйством (Ellis et al., 2020)</div>
+               <div>🦠 60% инфекционных заболеваний - зоонозы из-за разрушения экосистем (Jones et al., Nature, 2008)</div>
+               <div>🛑 90% морских хищников исчезли с начала промышленного рыболовства (Worm et al., Science, 2006)</div>
+            </div>
+            <p class="pulse-text">Сохранение биоразнообразия невозможно в системе, где прибыль важнее жизни</p>
+            <div class="chart-wrapper">
+               <canvas id="biodiversityChart"></canvas>
+            </div>
+            <p class="pulse-text">Виды исчезают быстрее, чем мы успеваем их изучить</p>
+         </div>
+
+         <!-- Таймлайн антропоцена -->
+         <div class="threats-section">
+            <div class="timeline-container">
+               <canvas id="anthropoceneTimeline"></canvas>
+               <div class="timeline-legend">
+                  <span class="human-impact">🟥 Антропогенное воздействие</span>
+                  <span class="biodiversity">🟩 Биоразнообразие</span>
+                  <span class="events">⬜ Ключевые события</span>
+               </div>
+
+               <div class="collapse-alert alert alert-dark mt-3">
+                  <h5>🔬 Основные научные выводы:</h5>
+                  <ul>
+                     <li>Каждая сельхоз. цивилизация теряла 30-50% биоразнообразия в своем регионе</li>
+                     <li>Современный кризис - лишь продолжение 12,000-летнего тренда</li>
+                     <li>"Устойчивое развитие" - оксюморон в системе, требующей бесконечного роста</li>
+                  </ul>
+                  <button onclick="showRadicalConclusion()" class="btn btn-danger">
+                     <i class="bi bi-megaphone"></i>
+                     Что нам делать?
+                  </button>
+               </div>
+            </div>
+         </div>
+
+                <div id="radicalModal" class="eco-modal" style="display: none;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title">
+                                <i class="bi bi-globe2 me-2 text-danger"></i>
+                                Требуется радикальная перезагрузка цивилизации
+                            </h2>
+                            <button onclick="closeRadicalConclusion()" type="button" class="btn-close btn-close-white ms-auto" aria-label="Закрыть" style="font-size: 1.5rem; filter: drop-shadow(0 0 2px #dc3545);"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="conclusion-step animate-slide">
+                                <h3>1. Отказ от антропоцентризма</h3>
+                                <div><i class="bi bi-shield-check text-success me-2"></i>Признание равных прав всех биологических видов</div>
+                                <div><i class="bi bi-patch-question text-success me-2"></i>Формирование правовой субъектности для природы (реки, леса, животные как субъекты права)</div>
+                                <div><i class="bi bi-mortarboard-fill text-success me-2"></i>Изменение образовательных стандартов в сторону этики по отношению к природе</div>
+                            </div>
+
+                            <div class="conclusion-step animate-slide delay-1">
+                                <h3>2. Демонтаж индустриальной системы</h3>
+                                <div class="grid-container">
+                                    <div class="grid-item">
+                                        <i class="bi bi-people-fill text-warning me-2"></i>
+                                        Везде где возможно реализовывать общинный принцип
+                                    </div>
+                                    <div class="grid-item">
+                                        <i class="bi bi-fuel-pump text-warning me-2"></i>
+                                        Запрет большей части ископаемого топлива
+                                    </div>
+                                    <div class="grid-item">
+                                        <i class="bi bi-gem text-warning me-2"></i>
+                                        Национализация природных ресурсов
+                                    </div>
+                                    <div class="grid-item">
+                                        <i class="bi bi-diagram-3-fill text-warning me-2"></i>
+                                        Переход от глобалистской экономики к локальным автономным структурам
+                                    </div>
+                                    <div class="grid-item">
+                                        <i class="bi bi-bandaid-fill text-warning me-2"></i>
+                                        Принудительное свертывание отраслей, наносящих непоправимый вред биосфере
+                                    </div>
+                                    <div class="grid-item">
+                                        <i class="bi bi-tools text-warning me-2"></i>
+                                        Заменить массовое производство на маломасштабные, ремесленные, биоадаптивные формы
+                                    </div>
+                                    <div class="grid-item">
+                                        <i class="bi bi-gavel text-warning me-2"></i>
+                                        Создание экотрибуналов для индустриальных преступлений
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="conclusion-step animate-slide delay-2">
+                                <h3>3. Переход к биоцентричным сообществам</h3>
+                                <div class="grid-container">
+                                    <div class="grid-item">
+                                        <i class="bi bi-tree-fill text-success"></i>
+                                        Локальные экосистемы
+                                    </div>
+                                    <div class="grid-item">
+                                        <i class="bi bi-arrow-repeat text-success"></i>
+                                        Полная цикличность
+                                    </div>
+                                    <div class="grid-item">
+                                        <i class="bi bi-lightning-charge-fill text-danger"></i>
+                                        Запрет разрушительных технологий
+                                    </div>
+                                    <div class="grid-item">
+                                        <i class="bi bi-eye text-info"></i>
+                                        Интеграция традиционных знаний и духовных практик в общественное устройство
+                                    </div>
+                                    <div class="grid-item">
+                                        <i class="bi bi-flower2 text-success"></i>
+                                        Рекреации природной среды очищенной от человека
+                                    </div>
+                                </div>
+
+                                <div class="final-warning animate-pulse d-flex align-items-center justify-content-between gap-2">
+                                    <small class="mb-0">
+                                        <i class="bi bi-info-circle me-1"></i>По данным последних климатических моделей
+                                    </small>
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-hourglass-split text-danger ms-2" style="font-size: 2rem;"></i>
+                                        <span>Прогнозируемый коллапс: <span class="year">2100±20 CE</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer align-items-center">
+                            <button onclick="closeRadicalConclusion()" class="btn btn-eco-close">
+                                <i class="bi bi-door-closed-fill"></i>
+                                Закрыть и осознать
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Разливы нефти
+        const oilSpillsCtx = document.getElementById('oilSpillsChart').getContext('2d');
+        new Chart(oilSpillsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['2010', '2012', '2014', '2016', '2018', '2020'],
+                datasets: [{
+                    label: 'Тонны нефти (тыс.)',
+                    data: [120, 150, 200, 180, 220, 250],
+                    backgroundColor: '#dc3545',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+
+        // Счетчик разливов нефти
+        let oilCount = 0;
+        const oilCounter = document.getElementById('oilSpillCounter');
+        const oilTarget = 250000;
+        const oilInterval = setInterval(() => {
+            oilCount += 1000;
+            oilCounter.textContent = oilCount.toLocaleString();
+            if (oilCount >= oilTarget) clearInterval(oilInterval);
+        }, 50);
+
+        // Перепроизводство товаров
+        const overproductionCtx = document.getElementById('overproductionChart').getContext('2d');
+        new Chart(overproductionCtx, {
+            type: 'line',
+            data: {
+                labels: ['1800', '1820', '1840', '1860', '1880', '1900', '1920', '1940', '1960', '1980', '2000', '2020', '2030 (прогноз)'],
+                datasets: [{
+                    label: 'Производство товаров (млн тонн)',
+                    data: [10, 20, 30, 50, 80, 100, 150, 200, 400, 800, 1600, 3200, 6400],
+                    borderColor: '#28a745',
+                    fill: false,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+
+        // Избыточное потребление
+        const overconsumptionCtx = document.getElementById('overconsumptionChart').getContext('2d');
+        new Chart(overconsumptionCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Одежда', 'Мясо', 'Гаджеты', 'Упаковка', 'Косметика', 'Игрушки', 'Авто', 'Жильё', 'Десерты', 'Быт.химия'],
+                datasets: [{
+                    label: 'Разумный уровень',
+                    data: [5, 8, 3, 2, 1, 2, 4, 6, 2, 3],
+                    backgroundColor: '#28a745',
+                    borderWidth: 0
+                }, {
+                    label: 'Фактическое потребление',
+                    data: [95, 150, 87, 120, 65, 78, 145, 240, 190, 135],
+                    backgroundColor: '#dc3545',
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        title: { text: 'Масштаб разрушения (в % от допустимого)', color: '#fff' },
+                        ticks: { color: '#fff' },
+                        grid: { color: 'rgba(255,255,255,0.1)' }
+                    },
+                    x: {
+                        ticks: { color: '#fff', font: { size: 14 } },
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: { color: '#fff', font: { size: 16 } },
+                        position: 'top'
+                    },
+                    tooltip: {
+                        titleFont: { size: 16 },
+                        bodyFont: { size: 14 },
+                        footerFont: { size: 12 }
+                    }
+                }
+            }
+        });
+
+        // Загрязнение океанов пластиком
+        const plasticPollutionCtx = document.getElementById('plasticPollutionChart').getContext('2d');
+        new Chart(plasticPollutionCtx, {
+            type: 'line',
+            data: {
+                labels: ['2000', '2005', '2010', '2015', '2020'],
+                datasets: [{
+                    label: 'Пластик в океанах (млн тонн)',
+                    data: [1, 10, 30, 70, 300],
+                    borderColor: '#ffc107',
+                    fill: false,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+            }
+        });
+
+        // Деградация почв
+      const soilDegradationCtx = document.getElementById('soilDegradationChart').getContext('2d');
+      new Chart(soilDegradationCtx, {
+          type: 'bar',
+          data: {
+              labels: ['1900', '1930', '1960', '1990', '2020', '2050 (прогноз)'],
+              datasets: [{
+                  label: 'Утрата плодородных земель (%)',
+                  data: [5, 10, 20, 30, 40, 60],
+                  backgroundColor: '#8B4513',
+              }]
+          },
+          options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                  y: {
+                      beginAtZero: true,
+                      title: { display: true, text: '% утраченных земель', color: '#fff' },
+                      ticks: { color: '#fff' },
+                      grid: { color: 'rgba(255,255,255,0.1)' }
+                  },
+                  x: {
+                      ticks: { color: '#fff' },
+                      grid: { display: false }
+                  }
+              },
+              plugins: {
+                  legend: { labels: { color: '#fff' } }
+              }
+          }
+      });
+
+        // Уменьшение биоразнообразия
+        const biodiversityCtx = document.getElementById('biodiversityChart').getContext('2d');
+        new Chart(biodiversityCtx, {
+            type: 'line',
+            data: {
+                labels: ['1700', '1750', '1800', '1850', '1900', '1950', '2000', '2023', '2030 (прогноз)', '2050 (прогноз)'],
+                datasets: [{
+                    label: 'Численность популяций позвоночных (WWF Living Planet Index)',
+                    data: [100, 98, 95, 90, 85, 68, 48, 32, 22, 15],
+                    borderColor: '#28a745',
+                    fill: false,
+                    yAxisID: 'y',
+                }, {
+                    label: 'Темпы вымирания видов (особей/год)',
+                    data: [100, 150, 300, 500, 1000, 5000, 10000, 50000, 100000, 200000],
+                    borderColor: '#dc3545',
+                    borderDash: [5, 5],
+                    fill: false,
+                    yAxisID: 'y1',
+                }]
+            },
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: '% от базового уровня 1700 года',
+                            color: '#fff'
+                        },
+                        ticks: { color: '#fff' },
+                        grid: { color: 'rgba(255,255,255,0.1)' }
+                    },
+                    y1: {
+                        type: 'logarithmic',
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Вымирание видов (особей/год)',
+                            color: '#fff'
+                        },
+                        ticks: { color: '#fff' },
+                        grid: { display: false }
+                    },
+                    x: {
+                        ticks: { color: '#fff' },
+                        grid: { color: 'rgba(255,255,255,0.1)' }
+                    }
+                },
+                plugins: {
+                    annotation: {
+                        annotations: {
+                            industrialRevolution: {
+                                type: 'line',
+                                xMin: 1760,
+                                xMax: 1760,
+                                borderColor: '#ffc107',
+                                borderWidth: 2,
+                                label: {
+                                    content: 'Начало промышленной революции',
+                                    position: 'end',
+                                    backgroundColor: 'rgba(255,193,7,0.8)'
+                                }
+                            },
+                            greenRevolution: {
+                                type: 'line',
+                                xMin: 1950,
+                                xMax: 1950,
+                                borderColor: '#17a2b8',
+                                borderWidth: 2,
+                                label: {
+                                    content: '"Зеленая революция" - массовая интенсификация сельского хозяйства',
+                                    position: 'end',
+                                    backgroundColor: 'rgba(23,162,184,0.8)'
+                                }
+                            },
+                            planetaryBoundary: {
+                                type: 'line',
+                                yMin: 90,
+                                yMax: 90,
+                                borderColor: '#dc3545',
+                                borderWidth: 2,
+                                label: {
+                                    content: 'Планетарная граница безопасного уровня (Rockström et al., 2009)',
+                                    position: 'start',
+                                    backgroundColor: 'rgba(220,53,69,0.8)'
+                                }
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            footer: (items) => {
+                                const events = {
+                                    1950: 'Начало массового использования пестицидов (DDT)',
+                                    1970: 'Появление "пластиковой революции"',
+                                    1992: 'Рио-де-Жанейрская конвенция о биоразнообразии',
+                                    2010: 'Цели Aichi по биоразнообразию (провалены на 90%)',
+                                    2020: 'COVID-19 - пример зоонозной пандемии из-за разрушения экосистем'
+                                };
+                                return events[items[0].label] || '';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Временная шкала антропоцена
+        const timelineCtx = document.getElementById('anthropoceneTimeline').getContext('2d');
+        new Chart(timelineCtx, {
+            type: 'line',
+            data: {
+                labels: Array.from({ length: 46 }, (_, i) => -10000 + i * 500),
+                datasets: [
+                    {
+                        label: 'Биоразнообразие (%)',
+                        data: generateBiodiversityData(),
+                        borderColor: '#28a745',
+                        backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                        fill: true,
+                        tension: 0.2,
+                        pointRadius: 0
+                    },
+                    {
+                        label: 'Антропогенное давление (%)',
+                        data: generateHumanImpactData(),
+                        borderColor: '#dc3545',
+                        borderWidth: 2,
+                        tension: 0.1,
+                        fill: false,
+                        pointRadius: 0
+                    },
+                    {
+                        label: 'Ключевые события',
+                        data: generateEventMarkers(),
+                        borderColor: 'transparent',
+                        backgroundColor: '#ffc107',
+                        pointRadius: 8,
+                        pointHoverRadius: 10,
+                        pointStyle: 'rectRot',
+                        showLine: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        type: 'linear',
+                        title: {
+                            display: true,
+                            text: 'Год (до н.э./н.э.)',
+                            color: '#fff'
+                        },
+                        ticks: {
+                            color: '#fff',
+                            callback: function (value) {
+                                return value >= 0 ? `${value} н.э.` : `${-value} до н.э.`;
+                            },
+                            stepSize: 1000
+                        },
+                        grid: { color: 'rgba(255,255,255,0.1)' }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Индекс (%)',
+                            color: '#fff'
+                        },
+                        ticks: {
+                            color: '#fff',
+                            stepSize: 25
+                        },
+                        grid: { color: 'rgba(255,255,255,0.1)' },
+                        min: 0,
+                        max: 100
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: (items) => {
+                                const year = items[0].parsed.x;
+                                return getEventTitle(year);
+                            },
+                            label: (item) => {
+                                if (item.datasetIndex === 2) {
+                                    return getEventDescription(item.parsed.x);
+                                }
+                                return `${item.dataset.label}: ${item.parsed.y}%`;
+                            },
+                            afterLabel: (item) => {
+                                if (item.datasetIndex === 1) {
+                                    return getImpactChange(item.parsed.x);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Генерация данных с учетом всех событий
+        function generateHumanImpactData() {
+            const events = getHistoricalEventsData();
+            const data = [];
+
+            for (let i = -10000; i <= 2030; i += 500) {
+                let impact = 0;
+
+                // Базовый рост
+                if (i < -8000) impact = 5;
+                else if (i < -5000) impact = 15;
+                else if (i < 0) impact = 25;
+                else if (i < 1500) impact = 40;
+                else if (i < 1800) impact = 60;
+                else impact = 80;
+
+                // Добавляем влияние событий
+                events.forEach(event => {
+                    if (i >= event.year) {
+                        impact += event.impact;
+                    }
+                });
+
+                data.push(Math.min(impact, 100));
+            }
+
+            return data;
+        }
+
+        // Генерация маркеров событий
+        function generateEventMarkers() {
+            const events = getHistoricalEventsData();
+            const impactData = generateHumanImpactData();
+            const labels = Array.from({ length: 46 }, (_, i) => -10000 + i * 500);
+
+            return events.map(event => {
+                const index = labels.findIndex(year => year >= event.year);
+                const yValue = index !== -1 ? impactData[index] : 80;
+                return { x: event.year, y: yValue };
+            });
+        }
+
+        // Генерация данных для биоразнообразия
+        function generateBiodiversityData() {
+            const data = [];
+            for (let i = -10000; i <= 2000; i += 500) {
+                let value = 100;
+                if (i < -8000) value = 98;
+                else if (i < -5000) value = 90;
+                else if (i < 0) value = 85;
+                else if (i < 1500) value = 70;
+                else if (i < 1800) value = 60;
+                else value = 40;
+                data.push(value);
+            }
+            return data;
+        }
+
+        // Получение названия события
+        function getEventTitle(year) {
+            const events = {
+                '-10000': 'Неолитическая революция',
+                '-5000': 'Изобретение ирригации',
+                '-3000': 'Строительство пирамид',
+                '-2000': 'Бронзовый век',
+                '150': 'Римская империя',
+                '1000': 'Эпоха викингов',
+                '1492': 'Колумбов обмен',
+                '1850': 'Промышленная революция',
+                '1945': 'Послевоенная миграция и Зеленая революция',
+                '2024': 'Современный экологический кризис'
+            };
+            return events[year] || 'Историческое событие';
+        }
+
+        // Получение описания события
+        function getEventDescription(year) {
+            const descriptions = {
+                '-10000': 'Начало земледелия и вырубки лесов',
+                '-5000': 'Начало масштабного изменения водных экосистем',
+                '-3000': 'Массовая вырубка кедровых лесов Ливана',
+                '-2000': 'Вырубка лесов для производства древесного угля',
+                '150': 'Интенсивное сельское хозяйство и горное дело',
+                '1000': 'Уничтожение лесов в Исландии',
+                '1492': 'Глобальный обмен видами и болезнями',
+                '1850': 'Рост выбросов парниковых газов',
+                '1945': 'Массовые перемещения населения, урбанизация, химизация сельского хозяйства',
+                '2024': 'Исчезновение 75% популяций диких животных'
+            };
+            return descriptions[year] || 'Важное экологическое событие';
+        }
+
+        // Данные всех событий
+        function getHistoricalEventsData() {
+            return [
+                { year: -10000, impact: 5 },
+                { year: -5000, impact: 8 },
+                { year: -3000, impact: 10 },
+                { year: -2000, impact: 7 },
+                { year: 150, impact: 1 },
+                { year: 1000, impact: 5 },
+                { year: 1492, impact: 15 },
+                { year: 1850, impact: 20 },
+                { year: 1945, impact: 15 },
+                { year: 2024, impact: 40 }
+            ].sort((a, b) => a.year - b.year);
+        }
+
+        // Описание влияния события
+        function getImpactChange(year) {
+            const event = getHistoricalEventsData().find(e => e.year == year);
+            if (!event) return '';
+            return event.impact > 0
+                ? `📈 +${event.impact}% к антропогенному давлению`
+                : `📉 ${event.impact}% (снижение давления)`;
+        }
+
+        // Показ модального окна
+        function showRadicalConclusion() {
+            const modal = document.getElementById('radicalModal');
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.style.opacity = '1';
+            }, 10);
+        }
+
+        // Закрытие модального окна
+        function closeRadicalConclusion() {
+            const modal = document.getElementById('radicalModal');
+            modal.style.opacity = '0';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+    </script>
+</body>
+</html>

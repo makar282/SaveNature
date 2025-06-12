@@ -1,0 +1,211 @@
+body {
+    background: url('/images/trava.jpg') center center fixed;
+    background-size: cover;
+    padding-top: 70px;
+    min-height: 100vh;
+    color: #fff;
+}
+
+.background-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 0;
+}
+
+.purchases-container {
+    max-width: 900px;
+    margin: 40px auto;
+    position: relative;
+    z-index: 1;
+}
+
+.purchases-card {
+    background-color: rgba(13, 57, 31, 0.85);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.purchases-header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+    .purchases-header h2 {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #fff;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+.qr-section {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+    .qr-section h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: #fff;
+    }
+
+.qr-form .form-control {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+    .qr-form .form-control:focus {
+        border-color: #28a745;
+        box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+    }
+
+    .qr-form .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+.qr-form .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    transition: background-color 0.3s ease;
+}
+
+    .qr-form .btn-success:hover {
+        background-color: #218838;
+    }
+
+.qr-form .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    transition: background-color 0.3s ease;
+}
+
+    .qr-form .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+.purchases-section {
+    display: none; /* Скрываем по умолчанию */
+}
+
+    .purchases-section.visible {
+        display: block; /* Показываем, когда добавлен класс visible */
+    }
+
+.purchases-table {
+    display: none; /* Скрываем по умолчанию */
+}
+    .purchases-table.visible {
+    display: block; 
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: rgb(227, 255, 167);
+    border-radius: 10px;
+    overflow: hidden;
+    }
+
+    .purchases-table th,
+    .purchases-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        color: #333;
+    }
+
+    .purchases-table th {
+        font-weight: 600;
+        font-size: 1.1rem;
+        background-color: 
+        rgb(143, 252, 145);
+        color: #333;
+    }
+
+    .purchases-table td {
+        font-size: 1rem;
+    }
+
+    .purchases-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .purchases-table tr:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+.status-icon {
+    font-size: 1.4rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.status-not-approved {
+    color: #dc3545;
+}
+
+.status-neutral {
+    color: #6c757d;
+}
+
+.recommendation {
+    font-style: italic;
+    color: #555;
+}
+
+@media (max-width: 900px) {
+    .purchases-container {
+        margin: 20px;
+    }
+
+    .purchases-card {
+        padding: 20px;
+    }
+
+    .qr-section,
+    .purchases-section {
+        padding: 15px;
+    }
+
+    .purchases-table th,
+    .purchases-table td {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .purchases-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .qr-section h3 {
+        font-size: 1.3rem;
+    }
+
+    .status-icon {
+        font-size: 1.2rem;
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.loading-spinner {
+    display: none;
+    text-align: center;
+    padding: 20px;
+}
+
+    .loading-spinner.active {
+        display: block;
+    }

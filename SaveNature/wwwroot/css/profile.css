@@ -1,0 +1,132 @@
+﻿
+body {
+    background: url('/images/trava.jpg') center center fixed;
+    background-size: cover;
+    backdrop-filter: blur(4px) brightness(0.8);
+    padding-top: 70px;
+    min-height: 100vh;
+}
+
+.background-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    z-index: 0;
+}
+
+.profile-container {
+    max-width: 600px;
+    margin: 40px auto;
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+
+.profile-card {
+    background-color: rgba(40, 167, 70, 0.3);
+    border-radius: 15px;
+    padding: 30px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+    .profile-avatar i {
+        font-size: 3rem;
+        color: white;
+    }
+
+.profile-info h2 {
+    margin-bottom: 5px;
+}
+
+.profile-stats {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    flex: 1;
+    margin: 0 5px;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.profile-section {
+    margin-bottom: 25px;
+}
+
+    .profile-section h4 {
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+.badge-eco {
+    background-color: rgba(40, 167, 70, 0.7);
+    color: white;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.btn-edit {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+}
+
+    .btn-edit:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+        color: white;
+    }
+
+@media (max-width: 700px) {
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-avatar {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    .profile-stats {
+        flex-direction: column;
+    }
+
+    .stat-item {
+        margin: 5px 0;
+    }
+}

@@ -1,0 +1,281 @@
+
+body {
+    background: url('/images/trava.jpg') center center fixed;
+    background-size: cover;
+    padding-top: 70px;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Стили для контейнера временной шкалы (timeline) */
+.timeline-legend {
+    /* position: absolute; */
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.418);
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+    .timeline-legend span {
+        display: block;
+        margin: 5px 0;
+    }
+
+/* Затемняющая подложка (background-overlay) */
+.background-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 0;
+    height: 100%;
+    min-height: 100vh;
+}
+
+/* Основной контейнер угроз (threats-container) и карточки */
+.threats-container {
+    font-family: 'Ubuntu', sans-serif;
+    max-width: 1200px;
+    margin: 60px auto;
+    position: relative;
+    z-index: 1;
+    color: white;
+}
+
+.threats-card {
+    background-color: rgba(40, 167, 70, 0.185);
+    border-radius: 15px;
+    padding: 30px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 5px 35px rgba(252, 16, 16, 0.466);
+    margin-bottom: 40px;
+}
+
+.threats-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+    .threats-header h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+    }
+
+
+.threats-section {
+    width: 100%;
+    margin-bottom: 2rem;
+    padding: 0;
+}
+
+.biodiversity-stats {
+    margin-bottom: 1rem;
+    width: 108%;
+    max-width: 108% !important;
+}
+
+    .threats-section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+    }
+
+/*Стили для графиков (chart-wrapper)*/
+.chart-wrapper {
+    width: 100%;
+    max-width: 100% !important;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* Стили для radical-text */
+.radical-text {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(255, 0, 0, 0.2);
+    border-left: 5px solid #dc3545;
+    font-style: italic;
+}
+
+/* Анимированные и пульсирующие тексты */
+.pulse-text {
+    margin-top: 50px;
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 50px;
+    animation: pulse 3s infinite;
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.animated-text {
+    animation: fadeIn 2s ease-in;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Счетчик (counter) */
+.counter {
+    font-size: 2rem;
+    color: #ffc107;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Стили для модального окна radicalModal и его содержимого */
+.eco-modal {
+    display: flex;
+    position: fixed;
+    top: 2925px;
+    left: 200px;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1a2f1a, #0d1a0d);
+    width: 100%;
+    max-width: 2000px;
+    border-radius: 15px;
+    border: 2px solid #28a745;
+    box-shadow: 0 0 30px rgba(40, 167, 69, 0.5);
+    overflow: hidden;
+    animation: slideUp 0.5s;
+}
+
+.modal-header {
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid #28a745;
+}
+
+.modal-title {
+    color: #dc3545;
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.modal-body {
+    padding: 15px;
+}
+
+.conclusion-step {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border-left: 4px solid #28a745;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid #28a745;
+    border-radius: 10px;
+}
+
+.btn-eco-close {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+    .btn-eco-close:hover {
+        background: #bb2d3b;
+        transform: scale(1.05);
+        border-radius: 5px;
+    }
+
+/* Анимации для модального окна */
+@keyframes modalExit {
+    from {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(100px) scale(0.9);
+        opacity: 0;
+    }
+}
+
+@keyframes modalEntry {
+    from {
+        transform: translateY(100px) scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(50px);
+    }
+}
+
+/* Стили для выделения года */
+.year {
+    color: #ffc107;
+    font-size: 1.5em;
+    font-weight: bold;
+}

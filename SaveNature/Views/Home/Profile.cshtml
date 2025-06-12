@@ -1,0 +1,115 @@
+@model SaveNature.Models.ProfileViewModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Профиль";
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СОХРАНИ ПРИРОДУ | Профиль</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/profile.css" />
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-card">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <div class="profile-auth">
+                    <partial name="_LoginPartial" />
+                </div>
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <i class="bi bi-person-fill"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h2>@UserManager.GetUserName(User)</h2>
+                        @{
+                            var timeInProject = "Только начал помогать природе!";
+                            if (Model != null && Model.FirstReceiptDate != null)
+                            {
+                                var now = DateTime.UtcNow;
+                                var firstReceipt = Model.FirstReceiptDate.Value;
+                                var years = now.Year - firstReceipt.Year;
+                                var months = now.Month - firstReceipt.Month;
+                                var days = now.Day - firstReceipt.Day;
+
+                                if (days < 0)
+                                {
+                                    months--;
+                                    days += DateTime.DaysInMonth(firstReceipt.Year, firstReceipt.Month);
+                                }
+                                if (months < 0)
+                                {
+                                    years--;
+                                    months += 12;
+                                }
+
+                                var parts = new List<string>();
+                                if (days > 0 || (years == 0 && months == 0)) parts.Add($"{days} д{(days == 1 ? "ень" : "ня")}");
+                                if (months > 0) parts.Add($"{months} месяц{(months > 1 ? "ев" : "")}");
+                                if (years > 0) parts.Add($"{years} год{(years > 1 ? "а" : "")}");
+                                timeInProject = parts.Count > 0 ? $"Помогает природе уже {string.Join(", ", parts)}" : "Только начал помогать природе!";
+                            }
+                        }
+                        <p>@timeInProject</p>
+                    <button class="btn btn-sm btn-edit mt-2" onclick="window.location.href='@Url.Action("EditProfile", "Profile")'">Редактировать профиль</button>
+                    </div>
+                </div>
+
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">@(Model != null ? Model.EcoRating.ToString("F1") : "0")</div>
+                        <div class="stat-label">Эко-рейтинг</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">@(Model != null ? Model.EcoPurchasesCount : 0)</div>
+                        <div class="stat-label">Эко-покупок</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">
+                            @(Model != null && Model.FirstReceiptDate != null ? $"{(DateTime.UtcNow - Model.FirstReceiptDate.Value).Days}" : "0")
+                        </div>
+                        <div class="stat-label">Дней в проекте</div>
+                    </div>
+                </div>
+                <div class="profile-section">
+                    <h4>О себе</h4>
+                    <p>
+                        Я активно участвую в экологических инициативах уже более 3 лет.
+                        Сократил использование пластика на 80%, перешел на многоразовые
+                        альтернативы и участвую в программах переработки. Вдохновляю
+                        друзей и коллег на экологичный образ жизни.
+                    </p>
+                </div>
+
+                <div class="profile-section">
+                    <h4>Эко-привычки</h4>
+                    <ul>
+                        <li>Использую многоразовую бутылку для воды</li>
+                        <li>Сортирую мусор для переработки</li>
+                        <li>Покупаю продукты без упаковки</li>
+                        <li>Использую экологичные средства для уборки</li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="text-center">
+                    <h3>Войдите, чтобы воспользоваться</h3>
+                    <p>Пожалуйста, <a href="/Identity/Account/Login" class="text-white">войдите в аккаунт</a> или <a href="/Identity/Account/Register" class="text-white">зарегистрируйтесь</a>.</p>
+                </div>
+            }
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

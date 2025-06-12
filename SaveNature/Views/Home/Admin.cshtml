@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Админ-панель: База данных EcoAppDb</title>
+   <style>
+      body {
+         background: #1a1a1a;
+         color: white;
+         font-family: 'Ubuntu', sans-serif;
+         margin: 0;
+         padding: 20px;
+         min-height: 100vh;
+      }
+
+      h1, h2 {
+         text-align: center;
+      }
+
+      td.receipt-data {
+         max-width: 400px;
+         white-space: pre-wrap;
+         word-break: break-word;
+         font-family: monospace;
+      }
+
+
+      .container {
+         max-width: 100%;
+         margin: 0 auto;
+      }
+
+      .table-wrapper {
+         max-width: 100%;
+         overflow-x: auto;
+         margin-bottom: 40px;
+      }
+
+      table {
+         width: 100%;
+         border-collapse: collapse;
+         min-width: 600px;
+      }
+
+      th, td {
+         padding: 10px;
+         border: 1px solid #444;
+         text-align: left;
+         white-space: nowrap;
+         font-size: 11px;
+      }
+
+      th {
+         background: #333;
+      }
+
+      tr:nth-child(even) {
+         background: #222;
+      }
+
+      .error {
+         color: red;
+         text-align: center;
+      }
+   </style>
+</head>
+<body>
+   <div class="container">
+      <h1>Админ-панель: Просмотр базы данных EcoAppDb</h1>
+
+      <h2>Пользователи</h2>
+      <div class="table-wrapper">
+         <table id="usersTable">
+            <thead>
+               <tr>
+                  <th>ID</th>
+                  <th>Имя пользователя</th>
+                  <th>Email</th>
+               </tr>
+            </thead>
+            <tbody></tbody>
+         </table>
+      </div>
+
+      <h2>Чеки</h2>
+      <div class="table-wrapper">
+         <table id="receiptsTable">
+            <thead>
+               <tr>
+                  <th>ID чека</th>
+                  <th>e-mail пользователя</th>
+                  <th>Данные чека (JSON)</th>
+                  <th>Итого</th>
+                  <th>Дата покупки</th>
+                  <th>Дата добавления</th>
+               </tr>
+            </thead>
+            <tbody></tbody>
+         </table>
+      </div>
+
+
+      <h2>Товары</h2>
+      <div class="table-wrapper">
+         <table id="itemsTable">
+            <thead>
+               <tr>
+                  <th>ID</th>
+                  <th>ID чека</th>
+                  <th>Название</th>
+                  <th>Цена</th>
+                  <th>Оценка</th>
+               </tr>
+            </thead>
+            <tbody></tbody>
+         </table>
+      </div>
+
+      <h2>Рекомендации</h2>
+      <div class="table-wrapper">
+         <table id="recommendationsTable">
+            <thead>
+               <tr>
+                  <th>ID</th>
+                  <th>Товар</th>
+                  <th>Рекомендация</th>
+               </tr>
+            </thead>
+            <tbody></tbody>
+         </table>
+      </div>
+   </div>
+
+   <script>
+      function populateTable(tableId, data) {
+          const tbody = document.querySelector(`#${tableId} tbody`);
+          tbody.innerHTML = '';
+
+          if (data.length === 0) {
+              tbody.innerHTML = '<tr><td colspan="100%" class="error">Нет данных</td></tr>';
+              return;
+          }
+
+          // Получаем все ключи из первого объекта
+          const allKeys = Object.keys(data[0]);
+
+          // Определяем, какие индексы столбцов исключать для каждой таблицы
+          // Пример: для itemsTable исключаем 6-й (индекс 5) столбец, для других — ничего
+          let excludeIndices = [];
+
+          if (tableId === 'itemsTable') {
+              excludeIndices = [5];  // исключаем 7-й столбец (нумерация с 0)
+          } else if (tableId === 'receiptsTable') {
+              excludeIndices = [6];   // ничего не исключаем
+          } else {
+              excludeIndices = [];   // по умолчанию ничего не исключаем
+          }
+
+          // Фильтруем ключи, исключая нужные по индексам
+          const filteredKeys = allKeys.filter((_, idx) => !excludeIndices.includes(idx));
+
+          // Теперь отрисовываем строки
+          data.forEach(item => {
+              const row = document.createElement('tr');
+              filteredKeys.forEach(key => {
+                  const cell = document.createElement('td');
+                  cell.textContent = item[key] !== undefined && item[key] !== null ? item[key] : '-';
+                  cell.style.maxWidth = '250px';
+                  cell.style.wordWrap = 'break-word';
+                  cell.style.whiteSpace = 'normal';
+                  row.appendChild(cell);
+              });
+              tbody.appendChild(row);
+          });
+      }
+
+
+
+
+      async function loadData() {
+          try {
+              const endpoints = [
+                  { url: '/api/users', table: 'usersTable' },
+                  { url: '/api/receipts', table: 'receiptsTable' },
+                  { url: '/api/items', table: 'itemsTable' },
+                  { url: '/api/recommendations', table: 'recommendationsTable' },
+              ];
+
+              for (const endpoint of endpoints) {
+                  const response = await fetch(endpoint.url);
+                  if (!response.ok) throw new Error(`Ошибка загрузки данных: ${endpoint.url}`);
+                  const data = await response.json();
+                  populateTable(endpoint.table, data);
+              }
+
+          } catch (error) {
+              console.error(error);
+              document.querySelectorAll('tbody').forEach(tbody => {
+                  tbody.innerHTML = `<tr><td colspan="100%" class="error">${error.message}</td></tr>`;
+              });
+          }
+      }
+
+      window.onload = loadData;
+   </script>
+</body>
+</html>

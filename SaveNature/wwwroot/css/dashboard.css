@@ -1,0 +1,91 @@
+﻿body {
+    background: url('/images/trava.jpg') center center fixed;
+    background-size: cover;
+    padding-top: 70px;
+    min-height: 100vh;
+    margin: 0;
+    backdrop-filter: blur(5px);
+}
+
+.background-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.116);
+    z-index: 0;
+/*    backdrop-filter: blur(4px);*/
+    height: 100%;
+    min-height: 100vh;
+}
+
+.rating-container {
+    max-width: 600px;
+    margin: 60px auto 100px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 20px;
+}
+
+.reg-card {
+    background-color: rgba(13, 57, 31, 0.85);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+}
+
+canvas {
+    max-width: 100%;
+}
+
+#ratingText {
+    font-family: 'Ubuntu', sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+}
+
+.chart-wrapper {
+    position: relative;
+    width: 50%;
+    margin: 0 auto;
+}
+
+
+
+@media (max-width: 700px) {
+    .rating-container .d-flex {
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+}
+
+#ratingEffects {
+    font-family: 'Ubuntu', sans-serif;
+    width: 100%;
+    white-space: normal;
+    word-break: break-word;
+    padding-left: 0;
+}
+
+    #ratingEffects li {
+        font-family: 'Ubuntu', sans-serif;
+        width: 100%;
+        display: block;
+        white-space: normal;
+        word-break: break-word;
+    }
+
+.top-right-profile {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 2;
+    color: white;
+}

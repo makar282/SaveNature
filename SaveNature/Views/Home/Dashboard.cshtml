@@ -1,0 +1,124 @@
+@model dynamic
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СОХРАНИ ПРИРОДУ | Панель</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/dashboard.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+        @if (User.Identity != null && User.Identity.IsAuthenticated)            
+   {
+      <div class="background-overlay"></div>
+
+      <div class="rating-container">
+         <h1 class="mb-4 text-white" id="ratingTitle"></h1>
+         <div class="chart-wrapper">
+            <canvas id="ecoChart"></canvas>
+            <div id="ratingText">--</div>
+         </div>
+         <a href="/Home/Purchases" class="btn btn-success mt-5">Перейти к покупкам</a>
+         <ul class="text-white text-start mt-4" id="ratingEffects"></ul>
+      </div>
+        @if (User.Identity != null && User.Identity.IsAuthenticated)            
+      {
+
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+         <script>
+            const rating = 90; // Текущий рейтинг
+
+            const ctx = document.getElementById('ecoChart').getContext('2d');
+
+            const getColor = (value) => {
+            if (value >= 85) return '#28a745';      // Зеленый
+            if (value >= 50) return '#ffc107';      // Желтый
+            return '#dc3545';                       // Красный
+            };
+
+            const chart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+            datasets: [{
+            data: [rating, 100 - rating],
+            backgroundColor: [getColor(rating), '#e9ecef'],
+            borderWidth: 0,
+            }],
+            },
+            options: {
+            cutout: '75%',
+            responsive: true,
+            plugins: {
+            tooltip: { enabled: false },
+            legend: { display: false }
+            }
+            }
+            });
+
+            document.getElementById('ratingText').innerText = rating;
+
+            const titleEl = document.getElementById('ratingTitle');
+            const effectsEl = document.getElementById('ratingEffects');
+
+            const effects = {
+            high: {
+            title: 'Вы друид',
+            list: [
+            'Вы отказались от лишней упаковки.',
+            'Вы поддержали переработку, купив продукцию в перерабатываемой или долговечной таре.',
+            'Вы уменьшили нагрузку на водные ресурсы.',
+            'Ваши покупки не содержат микропластика.',
+            ]
+            },
+            medium: {
+            title: 'Вы друг природы',
+            list: [
+            'Вы снизили использование одноразового пластика — но могли бы сделать больше.',
+            'Иногда вы выбираете правильные товары — продолжайте в этом направлении.',
+            'Вы используете бытовую химию без агрессивных компонентов — но не всегда.'
+            ]
+            },
+            low: {
+            title: 'Вы враг природы',
+            list: [
+            'Упаковка ваших покупок из смешанного пластика отправляется на свалку.',
+            'Вы регулярно поддерживаете бренды, загрязняющие воду и воздух.',
+            'Выбираемые вами товары часто содержат микропластик.',
+            'Вы тратите ресурсы на продукты, которые не перерабатываются.',
+            ]
+            }
+            };
+
+            let category;
+            if (rating >= 85) category = 'high';
+            else if (rating >= 50) category = 'medium';
+            else category = 'low';
+
+            titleEl.innerText = effects[category].title;
+            effects[category].list.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            effectsEl.appendChild(li);
+            });
+         </script>
+      }
+   }
+			else
+			{
+                <div class="reg-card">
+                    <div class="text-center">
+                        <h3>Войдите, чтобы воспользоваться</h3>
+                        <p>Пожалуйста, <a href="/Identity/Account/Login" class="text-white">войдите в аккаунт</a> или <a href="/Identity/Account/Register" class="text-white">зарегистрируйтесь</a>.</p>
+                    </div>
+                </div>			
+         }
+</body>
+</html>
