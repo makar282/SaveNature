@@ -40,23 +40,23 @@ SaveNature/
    ```bash
    git clone https://github.com/makar282/SaveNature.git
    cd SaveNature
-````
+   ```
 
 2. Установить зависимости:
 
-   ```bash
+   ```
    dotnet restore
    ```
 
 3. Применить миграции и создать базу данных:
 
-   ```bash
+   ```
    dotnet ef database update
    ```
 
 4. Запустить проект:
 
-   ```bash
+   ```
    dotnet run
    ```
 
